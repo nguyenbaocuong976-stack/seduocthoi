@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 3: Game Đoán Số</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>🎲 Game Đoán Số (1-100) (Bài 3)</h1>
+    <div class="game-container">
+        <p>Tôi đã chọn một số ngẫu nhiên từ 1 đến 100. Hãy thử đoán!</p>
+        
+        <form id="guess-form" class="game-input-group">
+            <input type="number" id="guess-input" min="1" max="100" placeholder="Nhập số" required>
+            <button id="guess-btn" type="submit">Đoán</button>
+        </form>
+
+        <p id="message">Bắt đầu đoán số!</p>
+        <p id="attempts">Số lần thử: 0</p>
+        
+        <button id="reset-btn" class="game-btn">Chơi Lại</button>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

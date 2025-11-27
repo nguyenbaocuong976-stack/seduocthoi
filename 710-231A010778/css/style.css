@@ -1,0 +1,496 @@
+/* Thiết lập chung */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    padding: 20px;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #007bff;
+}
+
+/* -------------------------------------------------------------------------- */
+/* BÀI 1: CAROUSEL                           */
+/* -------------------------------------------------------------------------- */
+.carousel-container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden; /* Quan trọng để chỉ hiển thị slide hiện tại */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-slide {
+    display: flex;
+    /* Dùng transform để chuyển slide, tối ưu hơn dùng left/margin */
+    transform: translateX(0); 
+    transition: transform 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+    width: 100%;
+}
+
+.carousel-slide img {
+    width: 100%;
+    /* Flex-shrink: 0 đảm bảo ảnh không bị co lại, mỗi ảnh chiếm đúng 100% chiều rộng của container */
+    flex-shrink: 0; 
+    height: auto;
+    display: block;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.carousel-btn:hover {
+    opacity: 1;
+}
+
+#prevBtn {
+    left: 10px;
+    border-radius: 5px 0 0 5px;
+}
+
+#nextBtn {
+    right: 10px;
+    border-radius: 0 5px 5px 0;
+}
+
+/* Responsive cho Carousel */
+@media (max-width: 600px) {
+    .carousel-container {
+        max-width: 100%;
+        border-radius: 0;
+    }
+    .carousel-btn {
+        padding: 5px 8px;
+        font-size: 14px;
+    }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* BÀI 2: TODO LIST                          */
+/* -------------------------------------------------------------------------- */
+.todo-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.todo-input-group {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.todo-input-group input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+
+.todo-input-group button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.todo-input-group button:hover {
+    background-color: #218838;
+}
+
+.todo-list {
+    list-style: none;
+    padding: 0;
+    /* Sử dụng CSS Grid cho danh sách task */
+    display: grid; 
+    gap: 10px;
+}
+
+.todo-item {
+    display: grid;
+    /* Cột 1: Nội dung (tự động mở rộng), Cột 2 & 3: Nút (kích thước cố định) */
+    grid-template-columns: 1fr auto auto; 
+    align-items: center;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 5px solid #007bff;
+    transition: background-color 0.2s;
+}
+
+.todo-item.editing .task-text {
+    display: none;
+}
+
+.todo-item:hover {
+    background-color: #e9ecef;
+}
+
+.task-text {
+    word-break: break-word; /* Đảm bảo chữ dài không làm vỡ layout */
+}
+
+.task-edit-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    font-size: 16px;
+    display: none; /* Mặc định ẩn */
+}
+
+.todo-item.editing .task-edit-input {
+    display: block; /* Hiện khi đang chỉnh sửa */
+}
+
+.todo-item button {
+    padding: 8px 10px;
+    margin-left: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.todo-item button.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.todo-item button.edit-btn,
+.todo-item button.save-btn {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.todo-item button.save-btn {
+    display: none;
+    background-color: #007bff;
+    color: white;
+}
+
+.todo-item.editing .edit-btn {
+    display: none;
+}
+
+.todo-item.editing .save-btn {
+    display: block;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* BÀI 3: GUESSING GAME                      */
+/* -------------------------------------------------------------------------- */
+.game-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.game-input-group {
+    margin: 20px 0;
+}
+
+.game-input-group input {
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    margin-right: -1px; /* Để nút và input dính vào nhau */
+}
+
+.game-input-group button {
+    padding: 10px 15px;
+    background-color: #17a2b8;
+    color: white;
+    border: 2px solid #17a2b8;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.2s;
+}
+
+.game-input-group button:hover {
+    background-color: #138496;
+}
+
+#message {
+    min-height: 40px;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#attempts {
+    font-size: 1.2em;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Confetti Animation (Đơn giản) */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Cho phép click xuyên qua */
+    z-index: 1000;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: gold;
+    opacity: 0;
+    animation: confetti-fall 3s ease-out forwards;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translate(var(--x), var(--y)) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x-end), var(--y-end)) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* --- PHẦN LAYOUT CHUNG VÀ TYPOGRAPHY --- */
+
+body {
+    /* Đã thiết lập ở trên, đảm bảo nền nhẹ, chữ dễ đọc */
+    background-color: #f8f9fa; /* Nền trắng/xám nhẹ hơn */
+    color: #343a40;
+    line-height: 1.6;
+    padding: 0; /* Xóa padding body để nav chiếm toàn bộ chiều ngang */
+}
+
+.container {
+    max-width: 960px; /* Giới hạn chiều rộng nội dung */
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #007bff; /* Màu xanh dương chủ đạo */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #28a745; /* Màu xanh lá cho phần mục lục */
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 5px;
+}
+
+/* --- THANH ĐIỀU HƯỚNG (NAVBAR) --- */
+
+.navbar {
+    background-color: #343a40; /* Nền tối cho navbar */
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-start; /* Dịch chuyển các liên kết về bên trái */
+    align-items: center;
+}
+
+.navbar a {
+    color: #fff; /* Chữ trắng */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 10px 15px;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+    margin-right: 10px; /* Khoảng cách giữa các mục */
+}
+
+.navbar a:hover {
+    background-color: #007bff; /* Hover: Màu xanh dương chủ đạo */
+    color: white;
+}
+
+/* --- PHẦN NỘI DUNG TRANG CHỦ (index.html) --- */
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.welcome-section p {
+    font-size: 1.1em;
+    color: #6c757d;
+}
+
+.task-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.task-list li {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s;
+}
+
+.task-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-list a {
+    color: #28a745; /* Màu xanh lá cho liên kết bài tập */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.task-list a:hover {
+    text-decoration: underline;
+}
+
+/* --- PHẦN THÔNG TIN CHUNG (Footer/Info) --- */
+
+.info-box {
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.info-box p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+/* --- FOOTER --- */
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    border-top: 1px solid #dee2e6;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+/* --- CÁC TRANG PHỤ (Về tôi/Liên hệ) --- */
+
+.page-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Trang Về tôi */
+.about-me-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.about-me-grid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%; /* Ảnh chân dung tròn */
+    border: 4px solid #007bff;
+}
+
+/* Trang Liên hệ */
+.contact-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #218838;
+}
